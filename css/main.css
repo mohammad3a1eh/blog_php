@@ -1,0 +1,74 @@
+html,
+body {
+  height: 100%;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 1rem;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+#corner_b {
+  margin-top: -1px;
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+#corner_t {
+  margin-top: 10px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#center {
+  margin-top: -1px;
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+.alert.alert-primary {
+  margin-top: 10px;
+}
+
+#form_new_post {
+  max-width: 660px;
+}
+
+#discription {
+  min-height: 150px;
+  margin-bottom: 15px;
+}
+
+#content {
+  min-height: 300px;
+  margin-bottom: 15px;
+}
+
+.multiline {
+  white-space: pre-wrap;
+}
+
+#list_item {
+  width: 660px;
+}
+
+#profile {
+  width: 96px;
+  height: 96px;
+}
+
+#browse {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 20px;
+}
+
+#browse_btn {
+  margin-top: auto;
+  margin-bottom: auto;
+}
