@@ -32,7 +32,6 @@ $message = "";
                 $query = "insert into posts (title, discription, content, date) values ('$title', '$discription', '$content', '$date')";
                 $result = mysqli_query($con, $query);
 
-                echo $result;
 
                 if ($result) {
                     header("Location:index.php?message=The post was successfully saved");

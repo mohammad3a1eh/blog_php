@@ -72,3 +72,17 @@ body {
   margin-top: auto;
   margin-bottom: auto;
 }
+
+#add_comment {
+  width: 680px;
+  flex-direction: column;
+}
+
+#comment {
+  height: 200px;
+  margin-bottom: 20px;
+}
+
+#sub_title {
+  margin-bottom: 20px;
+}

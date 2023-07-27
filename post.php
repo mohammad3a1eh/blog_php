@@ -4,18 +4,52 @@ require_once "config.php";
 
 session_start();
 
+$message = "";
+
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
+
     $con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME) or die('Unable To connect');
 
     $query = "SELECT * FROM posts WHERE id='$id'";
     $result = mysqli_query($con, $query);
     $result = mysqli_fetch_assoc($result);
 
+    $get_comment = $result["title"];
+
+    $query = "SELECT * FROM comments WHERE titlepost='$get_comment'";
+    $comments = mysqli_query($con, $query);
+    $comments = mysqli_fetch_all($comments);
+
+
+
+    if (is_null($comments)) {
+        $status_comment = false;
+    } else {
+        $status_comment = true;
+    }
+
     $status = true;
+
+    if (isset($_POST["comment"])) {
+        $username = $_SESSION["username"];
+        $titlepost = $result["title"];
+        $comment = $_POST["comment"];
+        $datetime = date("Y/m/d");
+        $query = "insert into comments (username, titlepost, comment, date) values ('$username', '$titlepost', '$comment', '$datetime')";
+        $result_add_comment = mysqli_query($con,$query);
+
+        if ($result_add_comment == true) {
+            $message = "The comment was successfully saved";
+        } else {
+            $message = "Problem saving post!";
+        }
+        }
+
 } else {
     $status = false;
 }
+
 
 
 
@@ -53,6 +87,9 @@ if (isset($_GET["id"])) {
             <li class="breadcrumb-item active" aria-current="page"><?php echo $result["date"] ?></li>
         </ol>
     </nav>
+
+        <?php require_once "add_comment.php" ?>
+
     <?php } else {
         header("Location:index.php");
     } ?>
