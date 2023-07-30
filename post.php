@@ -15,15 +15,11 @@ if (isset($_GET["id"])) {
     $result = mysqli_query($con, $query);
     $result = mysqli_fetch_assoc($result);
 
-    $get_comment = $result["title"];
+    $get_comment = $result["id"];
 
-    $query = "SELECT * FROM comments WHERE title='$get_comment'";
+    $query = "SELECT * FROM comments WHERE postid='$get_comment' and postid=1 ";
     $comments = mysqli_query($con, $query);
     $comments = mysqli_fetch_all($comments);
-
-
-
-
 
 
     if (is_null($comments)) {
@@ -36,10 +32,10 @@ if (isset($_GET["id"])) {
 
     if (isset($_POST["comment"])) {
         $username = $_SESSION["username"];
-        $title = $result["title"];
+        $postid = $result["id"];
         $comment = $_POST["comment"];
         $datetime = date("Y/m/d");
-        $query = "insert into comments (username, title, comment, date) values ('$username', '$titlepost', '$comment', '$datetime')";
+        $query = "insert into comments (user, postid, comment ) values ('$username', '$postid', '$comment')";
         $result_add_comment = mysqli_query($con,$query);
 
         if ($result_add_comment == true) {

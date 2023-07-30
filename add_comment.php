@@ -24,9 +24,9 @@
         <div class="list-group-item list-group-item-action d-flex gap-3 py-3" id="add_comment" aria-current="true">
             <div class="d-flex gap-2 w-100 justify-content-between">
                 <div>
-                    <span class="d-inline-block text-truncate multiline" style="max-width: 150px;"><?php echo $comment_dt[3] ?></span>
+                    <span class="d-inline-block text-truncate multiline" style="max-width: 150px;"><?php echo $comment_dt[2] ?></span>
                 </div>
-                <small class="opacity-50 text-nowrap"><?php echo $comment_dt[1]."-".$comment_dt[4] ?></small>
+                <small class="opacity-50 text-nowrap"><?php echo $comment_dt[3] ?></small>
             </div>
         </div>
                     <?php } ?>
