@@ -5,7 +5,7 @@ require_once "config.php";
 
 $con = mysqli_connect(DATABASE_HOST,DATABASE_USER,DATABASE_PASS,DATABASE_NAME) or die('Unable To connect');
 
-$query = "SELECT * FROM posts";
+$query = "SELECT * FROM posts where status=1";
 $result = mysqli_query($con, $query);
 $result = mysqli_fetch_all($result);
 

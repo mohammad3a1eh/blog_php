@@ -82,7 +82,7 @@ if (isset($_POST["title"]) and isset($_POST["discription"]) and isset($_POST["co
             <label for="floatingInput">Title</label>
         </div>
         <div class="form-floating">
-            <textarea class="form-control" placeholder="Discription" name="discription" id="discription" value="<?php echo $result["discription"] ?>"></textarea>
+            <textarea class="form-control" placeholder="Discription" name="discription" id="discription"><?php echo $result["discription"] ?></textarea>
             <label for="floatingTextarea">Discription</label>
         </div>
         <div class="form-floating">

@@ -17,9 +17,12 @@ if (isset($_GET["id"])) {
 
     $get_comment = $result["title"];
 
-    $query = "SELECT * FROM comments WHERE titlepost='$get_comment'";
+    $query = "SELECT * FROM comments WHERE title='$get_comment'";
     $comments = mysqli_query($con, $query);
     $comments = mysqli_fetch_all($comments);
+
+
+
 
 
 
@@ -33,10 +36,10 @@ if (isset($_GET["id"])) {
 
     if (isset($_POST["comment"])) {
         $username = $_SESSION["username"];
-        $titlepost = $result["title"];
+        $title = $result["title"];
         $comment = $_POST["comment"];
         $datetime = date("Y/m/d");
-        $query = "insert into comments (username, titlepost, comment, date) values ('$username', '$titlepost', '$comment', '$datetime')";
+        $query = "insert into comments (username, title, comment, date) values ('$username', '$titlepost', '$comment', '$datetime')";
         $result_add_comment = mysqli_query($con,$query);
 
         if ($result_add_comment == true) {
@@ -74,9 +77,13 @@ if (isset($_GET["id"])) {
 
 <body>
 <main class="form-signin w-100 m-auto" id="form_new_post">
-    <?php if ($status) { ?>
 
-    <a href="edit_post.php?id=<?php echo $result["id"]?>">Edit</a>
+
+    <?php if ($status) { ?>
+        <?php if (isset($_SESSION["username"])) { if ($_SESSION["username"] == $result["user"]) { ?>
+            <a href="edit_post.php?id=<?php echo $result["id"]?>">Edit</a>
+        <?php } } ?>
+
     <p class="fs-2"><?php echo $result["title"] ?></p>
     <hr>
     <p class="fs-6 multiline"><?php echo $result["discription"] ?></p>

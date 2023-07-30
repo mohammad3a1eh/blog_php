@@ -29,7 +29,8 @@ $message = "";
                 $discription = htmlspecialchars($_POST["discription"]);
                 $content = htmlspecialchars($_POST["content"]);
                 $date = $_POST["date"];
-                $query = "insert into posts (title, discription, content, date) values ('$title', '$discription', '$content', '$date')";
+                $user = $_SESSION["username"];
+                $query = "insert into posts (title, discription, content, date, user) values ('$title', '$discription', '$content', '$date', '$user')";
                 $result = mysqli_query($con, $query);
 
 

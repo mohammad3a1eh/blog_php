@@ -3,12 +3,12 @@ require_once "config.php";
 
 $message="";
 
-if(isset($_POST["username"]) and isset($_POST["password"]) and isset($_POST["verify_password"]) and isset($_POST["email"]) and isset($_POST["submit"])) {
+if(isset($_POST["username"]) and isset($_POST["password"]) and isset($_POST["verify_password"]) and isset($_POST["email"]) and isset($_POST["submit"]) and isset($_POST["firstname"]) and isset($_POST["lastname"]) and isset($_POST["age"])) {
 
     if (!($_POST["password"] == $_POST["verify_password"])) {
         $message = "Invalid Verify Password!";
     } else {
-        if ($_POST["username"] == "" or $_POST["password"] == "" or $_POST["verify_password"] == "" or $_POST["email"] == "") {
+        if ($_POST["username"] == "" or $_POST["password"] == "" or $_POST["verify_password"] == "" or $_POST["email"] == "" or $_POST["firstname"] == "" or $_POST["lastname"] == "" or $_POST["age"] == "") {
             $message = "Fields cannot be empty!";
         } else {
 
@@ -26,7 +26,14 @@ if(isset($_POST["username"]) and isset($_POST["password"]) and isset($_POST["ver
                 $username = $_POST["username"];
                 $password = $_POST["password"];
                 $email = $_POST["email"];
-                $query = "insert into users (username, password, email) values ('$username', '$password', '$email')";
+                $firstname = $_POST["firstname"];
+                $lastname = $_POST["lastname"];
+                $age = (int)$_POST["age"];
+
+                var_dump($age);
+
+
+                $query = "insert into users (username, password, email,firstname ,lastname ,age) values ('$username', '$password', '$email', '$firstname', '$lastname', '$age')";
                 $result = mysqli_query($con, $query);
 
                 if ($result) {
@@ -62,9 +69,20 @@ if(isset($_POST["username"]) and isset($_POST["password"]) and isset($_POST["ver
 
         <h1 class="h3 mb-3 fw-normal">Sign up</h1>
 
-
         <div class="form-floating">
-            <input type="text" class="form-control" name="username" id="corner_t" placeholder="username">
+            <input type="text" class="form-control" name="firstname" id="corner_t" placeholder="firstname">
+            <label for="floatingInput">First name</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" name="lastname" id="center" placeholder="lastname">
+            <label for="floatingInput">Last name</label>
+        </div>
+        <div class="form-floating">
+            <input type="number" class="form-control" name="age" id="center" placeholder="age">
+            <label for="floatingInput">Age</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" name="username" id="center" placeholder="username">
             <label for="floatingInput">Username</label>
         </div>
         <div class="form-floating">
