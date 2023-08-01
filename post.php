@@ -1,6 +1,7 @@
 <?php
 
 require_once "config.php";
+require_once "class\class.php";
 
 session_start();
 
@@ -8,27 +9,34 @@ $message = "";
 
 if (isset($_SESSION["username"])) {
     $username = $_SESSION["username"];
-    $con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME) or die('Unable To connect');
-    $admin = mysqli_query($con, "select admin from users where username='$username'");
-    $admin = mysqli_fetch_row($admin);
-    $admin = $admin[0];
+    $user_auth = new database();
+    $user_auth->start();
+    $user_auth->setQuery("select admin from users where username='$username'");
+    $user_auth->fetch_row();
+    $admin = $user_auth->getFetch()[0];
+} else {
+    $admin = null;
 }
 
 
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
 
-    $con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME) or die('Unable To connect');
+    $get_post = new database();
+    $get_post->start();
+    $get_post->setQuery("SELECT * FROM posts WHERE id='$id'");
+    $get_post->fetch_assoc();
+    $post = $get_post->getFetch();
 
-    $query = "SELECT * FROM posts WHERE id='$id'";
-    $result = mysqli_query($con, $query);
-    $result_post = mysqli_fetch_assoc($result);
 
-    $get_comment = $result_post["id"];
+    $post_id = $post["id"];
 
-    $query = "SELECT * FROM comments WHERE postid='$get_comment' and postid=1 ";
-    $comments = mysqli_query($con, $query);
-    $comments = mysqli_fetch_all($comments);
+
+    $get_comment = new database();
+    $get_comment->start();
+    $get_comment->setQuery("SELECT * FROM comments WHERE postid='$post_id' and postid=1 ");
+    $get_comment->fetch_all();
+    $comments = $get_comment->getFetch();
 
 
     if (is_null($comments)) {
@@ -41,11 +49,13 @@ if (isset($_GET["id"])) {
 
     if (isset($_POST["comment"])) {
         $username = $_SESSION["username"];
-        $postid = $result_post["id"];
         $comment = $_POST["comment"];
         $datetime = date("Y/m/d");
-        $query = "insert into comments (user, postid, comment ) values ('$username', '$postid', '$comment')";
-        $result_add_comment = mysqli_query($con,$query);
+
+        $new_comment = new database();
+        $new_comment->start();
+        $new_comment->setQuery("insert into comments (user, postid, comment ) values ('$username', '$post_id', '$comment')");
+        $result_add_comment = $new_comment->getQueryResult();
 
         if ($result_add_comment == true) {
             $message = "The comment was successfully saved";
@@ -57,13 +67,6 @@ if (isset($_GET["id"])) {
 } else {
     $status = false;
 }
-
-
-
-
-
-
-
 
 ?>
 
@@ -85,25 +88,25 @@ if (isset($_GET["id"])) {
 
 
     <?php if ($status) { ?>
-        <?php if (isset($_SESSION["username"])) { if ($_SESSION["username"] == $result_post["user"]) { ?>
-            <a href="edit_post.php?id=<?php echo $result_post["id"]?>">Edit</a>
+        <?php if (isset($_SESSION["username"])) { if ($_SESSION["username"] == $post["user"]) { ?>
+            <a href="edit_post.php?id=<?php echo $post["id"]?>">Edit</a>
         <?php } } ?>
 
-    <p class="fs-2"><?php echo $result_post["title"] ?></p>
+    <p class="fs-2"><?php echo $post["title"] ?></p>
     <hr>
-    <p class="fs-6 multiline"><?php echo $result_post["discription"] ?></p>
+    <p class="fs-6 multiline"><?php echo $post["discription"] ?></p>
 
-    <p class="fs-5 multiline"><?php echo $result_post["content"] ?></p>
+    <p class="fs-5 multiline"><?php echo $post["content"] ?></p>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page"><?php echo $result_post["user"] . " " . $result_post["date"] ?> </li>
+            <li class="breadcrumb-item active" aria-current="page"><?php echo $post["user"] . " in " . $post["date"] ?> </li>
         </ol>
     </nav>
-        <?php if (isset($_SESSION["username"])) { if ($_SESSION["username"] == $result_post["user"] or $admin == 1 ) { ?>
-            <a class="btn btn-danger" href="drop.php?id=<?php echo $result_post["id"] ?>">Drop</a>
+        <?php if (isset($_SESSION["username"])) { if ($_SESSION["username"] == $post["user"] ) { ?>
+            <a class="btn btn-danger" href="drop.php?id=<?php echo $post["id"] ?>">Drop</a>
         <?php } } ?>
         <?php if ($admin == 1) { ?>
-            <a class="btn btn-primary" href="unpublish.php?id=<?php echo $result_post["id"] ?>">Unpublish</a>
+            <a class="btn btn-primary" href="unpublish.php?id=<?php echo $post["id"] ?>">Unpublish</a>
         <?php } ?>
 
 
