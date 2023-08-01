@@ -13,8 +13,9 @@ if (isset($_GET["id"])) {
     $con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME) or die('Unable To connect');
 
     $query = "SELECT * FROM posts WHERE id='$id'";
-    $result = mysqli_query($con, $query);
-    $result = mysqli_fetch_assoc($result);
+    $post = mysqli_query($con, $query);
+    $post = mysqli_fetch_assoc($post);
+
 
     $status = true;
 } else {
@@ -29,10 +30,10 @@ if (isset($_POST["title"]) and isset($_POST["discription"]) and isset($_POST["co
         $con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME) or die('Unable To connect');
         echo $_POST["title"];
         $query = "SELECT * FROM posts WHERE title='" . $_POST["title"] . "'";
-        $result = mysqli_query($con, $query);
-        $result = mysqli_fetch_array($result);
+        $resultcomment = mysqli_query($con, $query);
+        $resultcomment = mysqli_fetch_array($resultcomment);
         $message = "test";
-        if (!is_null($result)) {
+        if (!is_null($resultcomment)) {
             $message = "Invalid title!";
         } else {
             $title = $_POST["title"];
@@ -41,8 +42,8 @@ if (isset($_POST["title"]) and isset($_POST["discription"]) and isset($_POST["co
             $date = $_POST["date"];
             $id = $_POST["id"];
             $query = "update posts set title='$title', discription='$discription', content='$content', date='$date' where id=$id";
-            $result = mysqli_query($con, $query);
-            if ($result) {
+            $resultedit = mysqli_query($con, $query);
+            if ($resultedit) {
                 header("Location:index.php?message=The post was successfully saved");
             } else {
                 $message = "Problem saving post!";
@@ -78,19 +79,19 @@ if (isset($_POST["title"]) and isset($_POST["discription"]) and isset($_POST["co
             </div>
         <?php } ?>
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput" name="title" placeholder="title" value="<?php echo $result["title"] ?>">
+            <input type="text" class="form-control" id="floatingInput" name="title" placeholder="title" value="<?php echo $post["title"] ?>">
             <label for="floatingInput">Title</label>
         </div>
         <div class="form-floating">
-            <textarea class="form-control" placeholder="Discription" name="discription" id="discription"><?php echo $result["discription"] ?></textarea>
+            <textarea class="form-control" placeholder="Discription" name="discription" id="discription"><?php echo $post["discription"] ?></textarea>
             <label for="floatingTextarea">Discription</label>
         </div>
         <div class="form-floating">
-            <textarea class="form-control" placeholder="Content" name="content" id="content" ><?php echo $result["content"] ?></textarea>
+            <textarea class="form-control" placeholder="Content" name="content" id="content" ><?php echo $post["content"] ?></textarea>
             <label for="floatingTextarea">Content</label>
         </div>
         <div class="form-floating mb-3" >
-            <input type="date" class="form-control" name="date" id="date"  placeholder="date" onfocus="set_datetime()" value="<?php echo $result["date"] ?>">
+            <input type="date" class="form-control" name="date" id="date"  placeholder="date" onfocus="set_datetime()" value="<?php echo $post["date"] ?>">
             <label for="floatingInput">Date</label>
         </div>
         <input type="text" value="<?php echo $_GET["id"] ?>" hidden="hidden" name="id">

@@ -1,4 +1,5 @@
 
+<?php require_once "config.php" ?>
 
 <header class="p-3 mb-3 border-bottom">
     <div class="container">
@@ -27,6 +28,15 @@
                         <li><a class="dropdown-item" href="profile.php">Profile <?php echo $_SESSION["username"]?></a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="logout.php">Log out</a></li>
+                        <?php
+                        $username = $_SESSION["username"];
+                        $con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME) or die('Unable To connect');
+                        $result = mysqli_query($con, "select admin from users where username='$username'");
+                        $result = mysqli_fetch_row($result);
+
+                        if ($result[0] == 1) { ?>
+                        <li><a href="accept_post_list.php?page=1" class="dropdown-item">Accept Post</a></li>
+                        <?php } ?>
                     </ul>
                 <?php } else { ?>
                     <ul class="nav">

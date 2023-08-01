@@ -6,6 +6,15 @@ session_start();
 
 $message = "";
 
+if (isset($_SESSION["username"])) {
+    $username = $_SESSION["username"];
+    $con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME) or die('Unable To connect');
+    $admin = mysqli_query($con, "select admin from users where username='$username'");
+    $admin = mysqli_fetch_row($admin);
+    $admin = $admin[0];
+}
+
+
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
 
@@ -13,9 +22,9 @@ if (isset($_GET["id"])) {
 
     $query = "SELECT * FROM posts WHERE id='$id'";
     $result = mysqli_query($con, $query);
-    $result = mysqli_fetch_assoc($result);
+    $result_post = mysqli_fetch_assoc($result);
 
-    $get_comment = $result["id"];
+    $get_comment = $result_post["id"];
 
     $query = "SELECT * FROM comments WHERE postid='$get_comment' and postid=1 ";
     $comments = mysqli_query($con, $query);
@@ -32,7 +41,7 @@ if (isset($_GET["id"])) {
 
     if (isset($_POST["comment"])) {
         $username = $_SESSION["username"];
-        $postid = $result["id"];
+        $postid = $result_post["id"];
         $comment = $_POST["comment"];
         $datetime = date("Y/m/d");
         $query = "insert into comments (user, postid, comment ) values ('$username', '$postid', '$comment')";
@@ -76,20 +85,28 @@ if (isset($_GET["id"])) {
 
 
     <?php if ($status) { ?>
-        <?php if (isset($_SESSION["username"])) { if ($_SESSION["username"] == $result["user"]) { ?>
-            <a href="edit_post.php?id=<?php echo $result["id"]?>">Edit</a>
+        <?php if (isset($_SESSION["username"])) { if ($_SESSION["username"] == $result_post["user"]) { ?>
+            <a href="edit_post.php?id=<?php echo $result_post["id"]?>">Edit</a>
         <?php } } ?>
 
-    <p class="fs-2"><?php echo $result["title"] ?></p>
+    <p class="fs-2"><?php echo $result_post["title"] ?></p>
     <hr>
-    <p class="fs-6 multiline"><?php echo $result["discription"] ?></p>
+    <p class="fs-6 multiline"><?php echo $result_post["discription"] ?></p>
 
-    <p class="fs-5 multiline"><?php echo $result["content"] ?></p>
+    <p class="fs-5 multiline"><?php echo $result_post["content"] ?></p>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page"><?php echo $result["date"] ?></li>
+            <li class="breadcrumb-item active" aria-current="page"><?php echo $result_post["user"] . " " . $result_post["date"] ?> </li>
         </ol>
     </nav>
+        <?php if (isset($_SESSION["username"])) { if ($_SESSION["username"] == $result_post["user"] or $admin == 1 ) { ?>
+            <a class="btn btn-danger" href="drop.php?id=<?php echo $result_post["id"] ?>">Drop</a>
+        <?php } } ?>
+        <?php if ($admin == 1) { ?>
+            <a class="btn btn-primary" href="unpublish.php?id=<?php echo $result_post["id"] ?>">Unpublish</a>
+        <?php } ?>
+
+
 
         <?php require_once "add_comment.php" ?>
 

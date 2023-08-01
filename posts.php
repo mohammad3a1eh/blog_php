@@ -1,13 +1,39 @@
 <?php
 session_start();
 
+if (isset($_GET["message"])) {
+    $message = $_GET["message"];
+} else {
+    $message = "";
+}
+
 require_once "config.php";
 
 $con = mysqli_connect(DATABASE_HOST,DATABASE_USER,DATABASE_PASS,DATABASE_NAME) or die('Unable To connect');
 
-$query = "SELECT * FROM posts where status=1";
+
+$results_per_page = 5;
+
+$query = "select * from posts where status=1";
 $result = mysqli_query($con, $query);
-$result = mysqli_fetch_all($result);
+$number_of_result = mysqli_num_rows($result);
+
+
+$number_of_page = ceil ($number_of_result / $results_per_page);
+
+if (! isset($_GET["page"])) {
+    $page = 1;
+
+} else {
+    $page = $_GET["page"];
+}
+
+$page_first_result = ($page-1) * $results_per_page;
+$query = "select * from posts  where status=1 limit $page_first_result ,$results_per_page";
+$result2 = mysqli_query($con, $query);
+
+
+
 
 
 ?>
@@ -23,21 +49,19 @@ $result = mysqli_fetch_all($result);
 
 <body>
 
+
 <?php require_once "header.php" ?>
+
+<main class="form-signin w-100 m-auto" id="form_new_post">
+    <?php require_once "msg.php" ?>
+</main>
 <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center" >
     <div class="list-group" id="list_item">
-<?php foreach ($result as $key => $value) { ?>
 
-            <a href="post.php?id=<?php echo $value[0] ?>" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-                <div class="d-flex gap-2 w-100 justify-content-between">
-                    <div>
-                        <h6 class="mb-0"><?php echo $value[1] ?></h6>
-                        <span class="d-inline-block text-truncate" style="max-width: 150px;"><?php echo $value[2] ?></span>
-                    </div>
-                    <small class="opacity-50 text-nowrap"><?php echo $value[4] ?></small>
-                </div>
-            </a>
-<?php } ?>
+
+        <?php require_once "list_pagination.php" ?>
+
+
     </div>
 </div>
 </body>
