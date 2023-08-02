@@ -3,6 +3,8 @@
 require_once "config.php";
 require_once "class\class.php";
 
+$page_resulte = null;
+
 
 session_start();
 $connection = new database();
@@ -26,7 +28,7 @@ $connection->num_row();
 $number_of_result = $connection->getFetch();
 
 
-$number_of_page = ceil($number_of_result / $results_per_page);
+$number_of_page = (int)ceil($number_of_result / $results_per_page);
 
 if (!isset($_GET["page"])) {
     $page = 1;

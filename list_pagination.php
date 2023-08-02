@@ -15,6 +15,8 @@
 
 <nav aria-label="..." id="pagination">
     <ul class="pagination">
+
+
         <?php if ($page == 1) { ?>
             <li class="page-item disabled">
                 <a class="page-link" tabindex="-1">Previous</a>
@@ -25,18 +27,23 @@
             </li>
         <?php } ?>
 
-        <?php for ($page = 1; $page <= $number_of_page; $page++) { ?>
-            <li class="page-item"><a class="page-link" href="?page=<?php echo $page ?>"><?php echo $page ?></a></li>
+
+
+        <?php for ($page_resulte = 1; $page_resulte <= $number_of_page; $page_resulte++) { ?>
+            <li class="page-item"><a class="page-link" href="?page=<?php echo $page_resulte ?>"><?php echo $page_resulte ?></a></li>
         <?php } ?>
-        <?php if ($page == $number_of_page or $page > $number_of_page) { ?>
+
+
+        <?php if ($page >= $number_of_page) { ?>
             <li class="page-item disabled">
-                <a class="page-link" tabindex="-1">Next</a>
+                <a class="page-link" tabindex="+1">Next</a>
             </li>
         <?php } else { ?>
             <li class="page-item">
-                <a class="page-link" href="?page=<?php echo $page + 1 ?>">Next <?php echo $page ?></a>
+                <a class="page-link" href="?page=<?php echo $page + 1 ?>">Next</a>
             </li>
         <?php } ?>
+
 
     </ul>
 </nav>
