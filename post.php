@@ -29,7 +29,7 @@ if (isset($_GET["id"])) {
 
     $post_id = $post["id"];
 
-    $connection->setQuery("SELECT * FROM comments WHERE postid='$post_id' and postid=1 ");
+    $connection->setQuery("SELECT * FROM comments WHERE postid='$post_id' and status=1 ");
     $connection->fetch_all();
     $comments = $connection->getFetch();
 

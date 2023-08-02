@@ -30,7 +30,7 @@ if (!isset($_SESSION["username"])) {
 
     $results_per_page = RESULTS_PER_PAGE;
 
-    $connection->setQuery("select * from posts where status=0");
+    $connection->setQuery("select * from comments where status=0");
     $connection->num_row();
     $number_of_result = $connection->getFetch();
 
@@ -43,7 +43,7 @@ if (!isset($_SESSION["username"])) {
     }
 
     $page_first_result = ($page - 1) * $results_per_page;
-    $connection->setQuery("select * from posts  where status=0 limit $page_first_result ,$results_per_page");
+    $connection->setQuery("select * from comments  where status=0 limit $page_first_result ,$results_per_page");
     $posts = $connection->getQueryResult();
 
 
@@ -76,7 +76,7 @@ if (!isset($_SESSION["username"])) {
     <div class="list-group" id="list_item">
 
 
-        <?php require_once "list_pagination_accept.php" ?>
+        <?php require_once "list_pagination_accept_comment.php" ?>
 
 
     </div>

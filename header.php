@@ -42,7 +42,7 @@
                         if ($result[0] == 1) { ?>
                             <li><a href="accept_post_list.php?page=1" class="dropdown-item">Posts pending approval</a>
                             </li>
-                            <li><a href="accept_post_list.php?page=1" class="dropdown-item">Comments pending
+                            <li><a href="accept_comment_list.php?page=1" class="dropdown-item">Comments pending
                                     approval</a></li>
                         <?php } ?>
                     </ul>
