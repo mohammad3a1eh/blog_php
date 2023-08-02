@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/accept_post.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/accept_post_list.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/drop.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/edit_post.php" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/login.php" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/new_post.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/post.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/posts.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/publish.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/register.php" dialect="GenericSQL" />
   </component>
 </project>

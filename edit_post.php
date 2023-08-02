@@ -1,21 +1,20 @@
-
-
 <?php
 
 require_once "config.php";
+require_once "class\class.php";
 
 session_start();
 
+$connecion = new database();
+$connecion->start();
 $message = "";
 
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
-    $con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME) or die('Unable To connect');
 
-    $query = "SELECT * FROM posts WHERE id='$id'";
-    $post = mysqli_query($con, $query);
-    $post = mysqli_fetch_assoc($post);
-
+    $connecion->setQuery("SELECT * FROM posts WHERE id='$id'");
+    $connecion->fetch_assoc();
+    $post = $connecion->getFetch();
 
     $status = true;
 } else {
@@ -28,10 +27,11 @@ if (isset($_POST["title"]) and isset($_POST["discription"]) and isset($_POST["co
         $message = "Fields cannot be empty!";
     } else {
         $con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME) or die('Unable To connect');
-        echo $_POST["title"];
-        $query = "SELECT * FROM posts WHERE title='" . $_POST["title"] . "'";
-        $resultcomment = mysqli_query($con, $query);
-        $resultcomment = mysqli_fetch_array($resultcomment);
+
+        $connecion->setQuery("SELECT * FROM posts WHERE title='" . $_POST["title"] . "'");
+        $connecion->fetch_array();
+        $resultcomment = $connecion->getFetch();
+
         $message = "test";
         if (!is_null($resultcomment)) {
             $message = "Invalid title!";
@@ -41,8 +41,10 @@ if (isset($_POST["title"]) and isset($_POST["discription"]) and isset($_POST["co
             $content = htmlspecialchars($_POST["content"]);
             $date = $_POST["date"];
             $id = $_POST["id"];
-            $query = "update posts set title='$title', discription='$discription', content='$content', date='$date' where id=$id";
-            $resultedit = mysqli_query($con, $query);
+
+            $connecion->setQuery("update posts set title='$title', discription='$discription', content='$content', date='$date' where id=$id");
+            $resultedit = $connecion->getQueryResult();
+
             if ($resultedit) {
                 header("Location:index.php?message=The post was successfully saved");
             } else {
@@ -59,10 +61,13 @@ if (isset($_POST["title"]) and isset($_POST["discription"]) and isset($_POST["co
 
 <head>
     <title>User Login</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link href="css/main.css" rel="stylesheet">
-    <script src="js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <script src="js/main.js" ></script>
+    <script src="js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
 </head>
 <body>
 
@@ -70,40 +75,45 @@ if (isset($_POST["title"]) and isset($_POST["discription"]) and isset($_POST["co
 
 <?php if ($status) { ?>
 
-<main class="form-signin w-100 m-auto" id="form_new_post">
-    <h1 class="h3 mb-3 fw-normal">Edit Post</h1>
-    <form method="post" action="">
-        <?php if (!($message == "")) { ?>
-            <div class="alert alert-primary" role="alert">
-                <?php echo $message ?>
+    <main class="form-signin w-100 m-auto" id="form_new_post">
+        <h1 class="h3 mb-3 fw-normal">Edit Post</h1>
+        <form method="post" action="">
+            <?php if (!($message == "")) { ?>
+                <div class="alert alert-primary" role="alert">
+                    <?php echo $message ?>
+                </div>
+            <?php } ?>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" name="title" placeholder="title"
+                       value="<?php echo $post["title"] ?>">
+                <label for="floatingInput">Title</label>
             </div>
-        <?php } ?>
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput" name="title" placeholder="title" value="<?php echo $post["title"] ?>">
-            <label for="floatingInput">Title</label>
-        </div>
-        <div class="form-floating">
-            <textarea class="form-control" placeholder="Discription" name="discription" id="discription"><?php echo $post["discription"] ?></textarea>
-            <label for="floatingTextarea">Discription</label>
-        </div>
-        <div class="form-floating">
-            <textarea class="form-control" placeholder="Content" name="content" id="content" ><?php echo $post["content"] ?></textarea>
-            <label for="floatingTextarea">Content</label>
-        </div>
-        <div class="form-floating mb-3" >
-            <input type="date" class="form-control" name="date" id="date"  placeholder="date" onfocus="set_datetime()" value="<?php echo $post["date"] ?>">
-            <label for="floatingInput">Date</label>
-        </div>
-        <input type="text" value="<?php echo $_GET["id"] ?>" hidden="hidden" name="id">
-        <div class="form-floating mb-3" >
-            <button type="submit" class="btn btn-primary">Save Form</button>
-            <button type="reset" class="btn btn-secondary">Reset Form</button>
-        </div>
-    </form>
-</main>
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Discription" name="discription"
+                          id="discription"><?php echo $post["discription"] ?></textarea>
+                <label for="floatingTextarea">Discription</label>
+            </div>
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Content" name="content"
+                          id="content"><?php echo $post["content"] ?></textarea>
+                <label for="floatingTextarea">Content</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control" name="date" id="date" placeholder="date"
+                       onfocus="set_datetime()" value="<?php echo $post["date"] ?>">
+                <label for="floatingInput">Date</label>
+            </div>
+            <input type="text" value="<?php echo $_GET["id"] ?>" hidden="hidden" name="id">
+            <div class="form-floating mb-3">
+                <button type="submit" class="btn btn-primary">Save Form</button>
+                <button type="reset" class="btn btn-secondary">Reset Form</button>
+            </div>
+        </form>
+    </main>
 
-<?php } else { header("Location:index.php"); }?>
-
+<?php } else {
+    header("Location:index.php");
+} ?>
 
 
 </body>

@@ -7,7 +7,6 @@ if (empty($_SESSION["username"])) {
 } else {
 
 
-
     $user = $_SESSION['username'];
 
     var_dump($_FILES);
@@ -19,7 +18,7 @@ if (empty($_SESSION["username"])) {
         header("Location:profile.php?message=You should only use jpeg!");
     }
 
-    if (isset($_FILES['pic']) and ! ($type == "invalid")) {
+    if (isset($_FILES['pic']) and !($type == "invalid")) {
         if (file_exists($_FILES['pic']['tmp_name'])) {
 
             if (!is_dir("profile/$user")) {

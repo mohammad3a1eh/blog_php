@@ -1,9 +1,10 @@
 <?php
 require_once "config.php";
 
-$message="";
 
-if(isset($_POST["username"]) and isset($_POST["password"]) and isset($_POST["verify_password"]) and isset($_POST["email"]) and isset($_POST["submit"]) and isset($_POST["firstname"]) and isset($_POST["lastname"]) and isset($_POST["age"])) {
+$message = "";
+
+if (isset($_POST["username"]) and isset($_POST["password"]) and isset($_POST["verify_password"]) and isset($_POST["email"]) and isset($_POST["submit"]) and isset($_POST["firstname"]) and isset($_POST["lastname"]) and isset($_POST["age"])) {
 
     if (!($_POST["password"] == $_POST["verify_password"])) {
         $message = "Invalid Verify Password!";
@@ -12,12 +13,11 @@ if(isset($_POST["username"]) and isset($_POST["password"]) and isset($_POST["ver
             $message = "Fields cannot be empty!";
         } else {
 
-
-            $con = mysqli_connect(DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME) or die('Unable To connect');
-
-            $query = "SELECT * FROM users WHERE username='" . $_POST["username"] . "'";
-            $result = mysqli_query($con, $query);
-            $result = mysqli_fetch_array($result);
+            $connection = new database();
+            $connection->start();
+            $connection->setQuery("SELECT * FROM users WHERE username='" . $_POST["username"] . "'");
+            $connection->fetch_array();
+            $result = $connection->getFetch();
 
 
             if (!is_null($result)) {
@@ -30,11 +30,8 @@ if(isset($_POST["username"]) and isset($_POST["password"]) and isset($_POST["ver
                 $lastname = $_POST["lastname"];
                 $age = (int)$_POST["age"];
 
-                var_dump($age);
-
-
-                $query = "insert into users (username, password, email,firstname ,lastname ,age) values ('$username', '$password', '$email', '$firstname', '$lastname', '$age')";
-                $result = mysqli_query($con, $query);
+                $connection->setQuery("insert into users (username, password, email,firstname ,lastname ,age) values ('$username', '$password', '$email', '$firstname', '$lastname', '$age')");
+                $result = $connection->getQueryResult();
 
                 if ($result) {
                     header("Location:login.php");
@@ -47,17 +44,18 @@ if(isset($_POST["username"]) and isset($_POST["password"]) and isset($_POST["ver
 }
 
 
-
-
 ?>
 
 <html>
 <head>
     <title>User Register</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link href="css/main.css" rel="stylesheet">
-    <script src="js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <script src="js/main.js" ></script>
+    <script src="js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
 </head>
 
 
@@ -101,7 +99,8 @@ if(isset($_POST["username"]) and isset($_POST["password"]) and isset($_POST["ver
 
         <button class="btn btn-primary w-100 py-2" type="submit" name="submit">Sign up</button>
         <?php require_once "msg.php" ?>
-        <p class="mt-5 mb-3 text-body-secondary">Do you have an account? <a href="login.php">Sign in</a> or <a href="index.php">Home</a></p>
+        <p class="mt-5 mb-3 text-body-secondary">Do you have an account? <a href="login.php">Sign in</a> or <a
+                    href="index.php">Home</a></p>
     </form>
 </main>
 

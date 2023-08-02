@@ -13,21 +13,22 @@ body {
 }
 
 #corner_b {
-  margin-top: -1px;
-  margin-bottom: 10px;
+  margin-top: 1px;
+  margin-bottom: 1px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 
 #corner_t {
-  margin-top: 10px;
+  margin-top: 1px;
+  margin-bottom: 1px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
 #center {
-  margin-top: -1px;
-  margin-bottom: 0;
+  margin-top: 1px;
+  margin-bottom: 1px;
   border-radius: 0;
 }
 
