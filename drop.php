@@ -10,6 +10,7 @@ if (isset($_GET["id"])) {
 }
 
 $connection = new database();
+$connection->start();
 $connection->setQuery("delete from posts where id='$id'");
 
 header("Location:accept_post_list.php?message=drop successfully!");

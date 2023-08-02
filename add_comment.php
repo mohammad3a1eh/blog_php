@@ -26,7 +26,9 @@
                                   style="max-width: 150px;"><?php echo $comment_dt[2] ?></span>
                         </div>
                         <small class="opacity-50 text-nowrap"><?php echo $comment_dt[3] ?></small>
+
                     </div>
+                    <a class="btn btn-danger" href="drop_comment.php?id=<?php echo $comment_dt[0] ?>">Drop</a>
                 </div>
             <?php } ?>
         <?php } ?>
