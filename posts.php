@@ -47,6 +47,8 @@ $result2 = $connection->getQueryResult();
 <html>
 
 <head>
+    <title>Post list</title>
+    <link rel="icon" type="image/x-icon" href="favorite.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">

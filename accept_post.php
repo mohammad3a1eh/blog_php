@@ -45,7 +45,8 @@ if (isset($_GET["id"])) {
 
 <html lang="en">
 
-<title>User Register</title>
+<title>Confirm the post</title>
+<link rel="icon" type="image/x-icon" href="favorite.ico">
 <link href="css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 <link href="css/main.css" rel="stylesheet">

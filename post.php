@@ -68,16 +68,17 @@ if (isset($_GET["id"])) {
 
 
 <html lang="en">
-
-<title>User Register</title>
-<link href="css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-<link href="css/main.css" rel="stylesheet">
-<script src="js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"></script>
-<script src="js/main.js"></script>
-
+<head>
+    <title><?php echo $post["title"] ?></title>
+    <link rel="icon" type="image/x-icon" href="favorite.ico">
+    <link href="css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="css/main.css" rel="stylesheet">
+    <script src="js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+</head>
 <body>
 <main class="form-signin w-100 m-auto" id="form_new_post">
 

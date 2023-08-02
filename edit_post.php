@@ -60,7 +60,8 @@ if (isset($_POST["title"]) and isset($_POST["discription"]) and isset($_POST["co
 <html>
 
 <head>
-    <title>User Login</title>
+    <title>Edit post</title>
+    <link rel="icon" type="image/x-icon" href="favorite.ico">
     <link href="css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link href="css/main.css" rel="stylesheet">

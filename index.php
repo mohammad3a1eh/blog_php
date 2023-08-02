@@ -12,7 +12,8 @@ if (isset($_GET["message"])) {
 ?>
 <html>
 <head>
-    <title>User Login</title>
+    <title>Home</title>
+    <link rel="icon" type="image/x-icon" href="favorite.ico">
     <link href="css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/main.css">
