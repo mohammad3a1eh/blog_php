@@ -1,37 +1,29 @@
 <?php
-session_start();
 
-if (isset($_GET["message"])) {
-    $message = $_GET["message"];
-} else {
-    $message = "";
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
 
+require_once __DIR__ . "/lib/config.php";
 
+$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$path = trim($path, '/');
 
-?>
-<html>
-<head>
-    <title>Home</title>
-    <link rel="icon" type="image/x-icon" href="favorite.ico">
-    <link href="css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <script src="js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/main.css">
-    <script src="js/main.js" ></script>
-</head>
-<body">
+$basePath = "";
 
+if ($basePath && str_starts_with($path, $basePath)) {
+    $path = substr($path, strlen($basePath));
+}
 
-<?php require_once "header.php" ?>
+if ($path === "") {
+    $path = "index";
+}
 
-<main class="form-signin w-100 m-auto" id="form_new_post">
+$file = __DIR__ . "/pages/" . $path . ".php";
 
-<?php require_once "msg.php" ?>
-
-
-
-</main>
-
-
-</body>
-</html>
+if (file_exists($file)) {
+    require_once $file;
+} else {
+    http_response_code(404);
+    echo "Page not found";
+}
