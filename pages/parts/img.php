@@ -7,7 +7,6 @@
         <img src="profile/<?php echo $user ?>/profile.jpeg" alt="mdo" width="32" height="32" class="rounded-circle">
 
     <?php } else { ?>
-
         <img src="res/profile.png" alt="mdo" width="32" height="32" class="rounded-circle">
 
     <?php } ?>
