@@ -1,4 +1,4 @@
-<?php require_once "config.php" ?>
+<?php require_once __DIR__ . "/../../lib/config.php" ?>
 
 <header class="p-3 mb-3 border-bottom">
     <div class="container">
