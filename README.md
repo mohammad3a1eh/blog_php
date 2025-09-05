@@ -1,32 +1,40 @@
+# Blog PHP
 
-  <h1>پروژه بلاگ PHP</h1>
+A simple and clean blog application built with **PHP** and **Bootstrap**, allowing you to create, manage, and publish blog posts with support for comments and moderation.
 
-  <p>
-    این پروژه یک سیستم وبلاگ ساده است که با استفاده از زبان <strong>PHP</strong> توسعه داده شده و از پایگاه داده <strong>MySQL</strong> بهره می‌برد.
-    برای طراحی رابط کاربری از <strong>Bootstrap</strong> همراه با <strong>HTML</strong>، <strong>CSS</strong> و <strong>JavaScript</strong> استفاده شده است.
-  </p>
+## Features
+- Create, edit, publish, and unpublish blog posts
+- Add, accept, and manage comments on posts
+- Pagination for listing posts and comments
+- Upload and manage user profile image
+- Simple and responsive UI using Bootstrap
 
-  <p>
-    در نسخه‌های ابتدایی، هدف اصلی صرفاً تمرین و یادگیری PHP بود. اما در نسخه‌های جدیدتر، پروژه در حال بازنویسی با تمرکز بر بهبود ساختار،
-    مدیریت مسیرها (روتینگ)، رفع باگ‌ها و افزایش امنیت کلی است.
-  </p>
+## Requirements
+- PHP 7.x or newer
+- MySQL or compatible database
+- Web server (e.g. Apache with mod_rewrite enabled)
+- **Bootstrap** (integrated via `css/` and `js/` folders)
 
-<h2>ویژگی‌ها</h2>
-  <ul>
-    <li>توسعه‌یافته با زبان PHP</li>
-    <li>استفاده از پایگاه داده MySQL</li>
-    <li>رابط کاربری واکنش‌گرا با Bootstrap</li>
-    <li>پیاده‌سازی ساختار روتینگ مرکزی جهت مدیریت صفحات</li>
-    <li>تفکیک بهتر فایل‌ها و بهبود معماری پروژه</li>
-    <li>رفع باگ‌ها و افزایش امنیت</li>
-  </ul>
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/mohammad3a1eh/blog_php.git
+   cd blog_php
+   ```
+2. Import the provided SQL schema (if available) into your MySQL database.
+3. Update database credentials in `lib/config.php` (or wherever your DB config is).
+4. Ensure `upload_profile.php` is writable by the server (for image uploads).
+5. Run the application by accessing `index.php` in your browser.
+6. Use moderation features to publish posts and comments as needed.
 
-<h2>ساختار جدید پروژه</h2>
-  <p>
-    در بازنویسی فعلی، یک فایل مرکزی <strong>روتینگ</strong> ایجاد شده است که وظیفه‌ی مسیردهی به تمامی بخش‌های پروژه را بر عهده دارد.
-    این تغییر باعث شده ساختار فایل‌ها منظم‌تر، خواناتر و نگه‌داری کد آسان‌تر شود. همچنین مسیرهای مختلف (مانند نمایش پست‌ها، ایجاد پست جدید، ورود و ...) از طریق این سیستم روتینگ مدیریت می‌شوند.
-  </p>
+## Usage
+- Navigate to the homepage (`index.php`) to see published blog posts.
+- To create a post: `new_post.php`
+- To edit or delete: use the respective PHP files (`edit_post.php`, `drop.php`)
+- Moderate posts via moderation list (`accept_post_list.php`), accept with `accept_post.php`
+- Manage comments similarly
+- Upload a profile image with `upload_profile.php`
+- The site is styled using Bootstrap for a responsive layout.
 
-<code>ساختار پروژه در حال بازسازی جهت توسعه‌پذیری بهتر می‌باشد.</code>
-
-
+## License
+This project is licensed under the **GNU GPL‑3.0 License**. See the [LICENSE](LICENSE) file for details.
