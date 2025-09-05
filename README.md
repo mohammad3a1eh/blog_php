@@ -2,6 +2,8 @@
 
 A simple and clean blog application built with **PHP** and **Bootstrap**, allowing you to create, manage, and publish blog posts with support for comments and moderation.
 
+![Image](cover.png)
+
 ## Features
 - Create, edit, publish, and unpublish blog posts
 - Add, accept, and manage comments on posts
