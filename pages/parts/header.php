@@ -27,7 +27,7 @@
                     </a>
 
                     <ul class="dropdown-menu text-small">
-                        <li><a class="dropdown-item" href="profile.php">Profile <?php echo $_SESSION["username"] ?></a>
+                        <li><a class="dropdown-item" href="/profile">Profile <?php echo $_SESSION["username"] ?></a>
                         </li>
                         <li>
                             <hr class="dropdown-divider">

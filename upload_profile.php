@@ -3,7 +3,7 @@
 session_start();
 
 if (empty($_SESSION["username"])) {
-    header("Location:index.php");
+    header("Location: /");
 } else {
 
 
@@ -15,25 +15,25 @@ if (empty($_SESSION["username"])) {
         $type = ".jpeg";
     } else {
         $type = "invalid";
-        header("Location:profile.php?message=You should only use jpeg!");
+        header("Location:/profile?message=You should only use jpeg!");
     }
 
     if (isset($_FILES['pic']) and !($type == "invalid")) {
         if (file_exists($_FILES['pic']['tmp_name'])) {
 
-            if (!is_dir("profile/$user")) {
-                mkdir("profile/$user");
+            if (!is_dir("profiles/$user")) {
+                mkdir("profiles/$user");
             }
 
-            $path = "profile/$user/profile$type";
+            $path = "profiles/$user/profile$type";
             $file = $_FILES['pic']['tmp_name'];
 
             if (move_uploaded_file($file, $path)) {
-                header("Location:profile.php?message=Profile picture uploaded successfully!");
+                header("Location:/profile?message=Profile picture uploaded successfully!");
             }
         }
     } else {
-        header("Location:profile.php?message=It was not successful!");
+        header("Location:/profile?message=It was not successful!");
     }
 }
 
